@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
     private TODoItemDatabase todoItemDatabase;
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent a = new Intent(this,MainActivity.class);
+            a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(a);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -31,15 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        if (savedInstanceState != null) {
-//            toDoItems = savedInstanceState.getParcelableArrayList("ITEMS");
-//        } else {
-//            toDoItems = new ArrayList<>();
-//            ToDoItem item = new ToDoItem("Title 1","This is description");
-//            ToDoItem item2 = new ToDoItem("Title 2","This is description");
-//            toDoItems.add(item);
-//            toDoItems.add(item2);
-//        }
+
         itemsListView = (ListView) findViewById(R.id.listView);
         adapter = new ToDoListAdapter(getBaseContext(), toDoItems);
         itemsListView.setAdapter(adapter);
@@ -125,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
+        readDatabase();
+        adapter = new ToDoListAdapter(getBaseContext(), toDoItems);
+        itemsListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 

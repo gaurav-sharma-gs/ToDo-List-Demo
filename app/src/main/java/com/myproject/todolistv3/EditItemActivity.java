@@ -19,7 +19,7 @@ public class EditItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_item);
 
         Intent intent = getIntent();
-        ToDoItem item = intent.getParcelableExtra("EDIT_ITEM");
+        ToDoItem item = (ToDoItem) intent.getParcelableExtra("EDIT_ITEM");
         Log.i("YOYOYOYOYOYOYOYO", String.valueOf(item.getId()));
         Log.i("YOYOYOYOYOYOYOYO", String.valueOf(item.getTitle()));
         editTitleEditText = (EditText) findViewById(R.id.editTitleEditText);
@@ -38,7 +38,7 @@ public class EditItemActivity extends AppCompatActivity {
         Log.i("BhaiSahab", String.valueOf(item.getId()));
         Intent intent = new Intent();
         Log.i("BhaiSahab",item.toString());
-        intent.putExtra("EDIT_ITEM", item);
+        intent.putExtra("EDIT_RESULT", item);
         setResult(RESULT_OK, intent);
         finish();
     }

@@ -24,6 +24,7 @@ public class ToDoItem implements Parcelable {
     }
 
     protected ToDoItem(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         discription = in.readString();
         priority = in.readInt();
@@ -88,6 +89,7 @@ public class ToDoItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(discription);
         dest.writeInt(priority);

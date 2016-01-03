@@ -1,6 +1,7 @@
 package com.myproject.todolistv3;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,11 +26,12 @@ public class ItemViewFragment extends Fragment {
     TextView titleViewTextView;
     TextView descriptionViewTextView;
     ToDoItem item;
-
+//    UpdateMainView updateMainView;
+//    Context context;
     public ItemViewFragment() {
         // Required empty public constructor
-    }
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +41,8 @@ public class ItemViewFragment extends Fragment {
         titleViewTextView = (TextView) fragView.findViewById(R.id.titleViewTextView);
         descriptionViewTextView = (TextView) fragView.findViewById(R.id.descriptionViewTextView);
         database = new TODoItemDatabase(getActivity());
+//        context = getActivity();
+//        updateMainView = (MainActivity) context;
         Bundle bundle = getArguments();
         item = bundle.getParcelable("ITEM");
         titleViewTextView.setText(item.getTitle());
@@ -54,13 +58,15 @@ public class ItemViewFragment extends Fragment {
         return fragView;
     }
 
+
     public void editItem() {
         Intent intent = new Intent(getActivity(), EditItemActivity.class);
         Log.i("YOYOYO", String.valueOf(database.getIdForItem(item)));
-        item.setId(database.getIdForItem(item));
+        item.setId( (int) database.getIdForItem(item));
         Log.i("YOYOYO", String.valueOf(item.getId()));
         Log.i("YOYOYO", String.valueOf(item.getTitle()));
         intent.putExtra("EDIT_ITEM", item);
+        Log.i("YOYOYO", String.valueOf(item.getId()));
         startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
     }
 
@@ -69,11 +75,16 @@ public class ItemViewFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_ITEM_REQUEST_CODE && resultCode == RESULT_OK) {
             if (data != null) {
-                ToDoItem item = data.getParcelableExtra("EDIT_ITEM");
+                ToDoItem item = data.getParcelableExtra("EDIT_RESULT");
+                // update
                 database.updateTodoItem(item);
+//                updateMainView.onItemUpdate(item);
                 titleViewTextView.setText(item.getTitle());
                 descriptionViewTextView.setText(item.getDiscription());
             }
         }
     }
+//    public interface UpdateMainView {
+//        public void onItemUpdate(ToDoItem item);
+//    };
 }

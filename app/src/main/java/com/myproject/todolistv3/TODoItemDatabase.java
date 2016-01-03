@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class TODoItemDatabase extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "todoListDatabase";
@@ -133,7 +133,7 @@ public class TODoItemDatabase extends SQLiteOpenHelper {
         values.put(KEY_TITLE, item.getTitle());
         values.put(KEY_DESCRIPTION, item.getDiscription());
         // Updating row
-        int result = db.update(TABLE_TODO, values, KEY_ID + " = ?",
+        int result = db.update(TABLE_TODO, values, KEY_ID +  " = ?",
                 new String[]{String.valueOf(item.getId())});
         // Close the database
         db.close();
