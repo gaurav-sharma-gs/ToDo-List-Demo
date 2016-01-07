@@ -46,5 +46,6 @@ public class ToDoItemViewActivity extends AppCompatActivity {
                 return items.size();
             }
         });
+        viewPager.setCurrentItem(selectedPosition);
     }
 }

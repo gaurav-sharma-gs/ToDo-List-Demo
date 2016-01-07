@@ -25,6 +25,7 @@ public class ItemViewFragment extends Fragment {
     TODoItemDatabase database;
     TextView titleViewTextView;
     TextView descriptionViewTextView;
+    TextView priorityViewTextView;
     ToDoItem item;
 //    UpdateMainView updateMainView;
 //    Context context;
@@ -40,6 +41,7 @@ public class ItemViewFragment extends Fragment {
         View fragView = inflater.inflate(R.layout.fragment_item_view, container, false);
         titleViewTextView = (TextView) fragView.findViewById(R.id.titleViewTextView);
         descriptionViewTextView = (TextView) fragView.findViewById(R.id.descriptionViewTextView);
+        priorityViewTextView  = (TextView) fragView.findViewById(R.id.priorityViewTextView);
         database = new TODoItemDatabase(getActivity());
 //        context = getActivity();
 //        updateMainView = (MainActivity) context;
@@ -47,12 +49,19 @@ public class ItemViewFragment extends Fragment {
         item = bundle.getParcelable("ITEM");
         titleViewTextView.setText(item.getTitle());
         descriptionViewTextView.setText(item.getDiscription());
-
+        priorityViewTextView.setText(item.getPriority());
         FloatingActionButton fab = (FloatingActionButton) fragView.findViewById(R.id.editFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editItem();
+            }
+        });
+        FloatingActionButton fabDelete = (FloatingActionButton) fragView.findViewById(R.id.deleteFab);
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteItem();
             }
         });
         return fragView;
@@ -70,6 +79,14 @@ public class ItemViewFragment extends Fragment {
         startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
     }
 
+    public void deleteItem() {
+
+        item.setId( (int) database.getIdForItem(item));
+        item.setIs_deleted(1);
+        database.updateTodoItem(item);
+        getActivity().finish();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -81,6 +98,7 @@ public class ItemViewFragment extends Fragment {
 //                updateMainView.onItemUpdate(item);
                 titleViewTextView.setText(item.getTitle());
                 descriptionViewTextView.setText(item.getDiscription());
+                priorityViewTextView.setText(item.getPriority());
             }
         }
     }

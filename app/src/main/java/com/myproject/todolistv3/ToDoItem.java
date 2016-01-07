@@ -16,18 +16,22 @@ public class ToDoItem implements Parcelable {
     private String title;
     private String discription;
     private Time dueTime;
-    private int priority;
+    private String priority;
+    private Integer is_deleted;
 
-    public ToDoItem(String title, String discription) {
+    public ToDoItem(String title, String discription, String priority, Integer is_deleted) {
         this.title = title;
         this.discription = discription;
+        this.priority = priority;
+        this.is_deleted = is_deleted;
     }
 
     protected ToDoItem(Parcel in) {
         id = in.readInt();
         title = in.readString();
         discription = in.readString();
-        priority = in.readInt();
+        priority = in.readString();
+        is_deleted = in.readInt();
     }
 
     public static final Creator<ToDoItem> CREATOR = new Creator<ToDoItem>() {
@@ -41,6 +45,7 @@ public class ToDoItem implements Parcelable {
             return new ToDoItem[size];
         }
     };
+
 
     public int getId() {
         return id;
@@ -74,12 +79,20 @@ public class ToDoItem implements Parcelable {
         this.dueTime = dueTime;
     }
 
-    public int getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public Integer getIs_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(Integer is_deleted) {
+        this.is_deleted = is_deleted;
     }
 
     @Override
@@ -92,6 +105,7 @@ public class ToDoItem implements Parcelable {
         dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(discription);
-        dest.writeInt(priority);
+        dest.writeString(priority);
+        dest.writeInt(is_deleted);
     }
 }

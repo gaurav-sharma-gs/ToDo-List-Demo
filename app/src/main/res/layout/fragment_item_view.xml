@@ -29,6 +29,20 @@
         android:text="Description"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/priorityViewTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/descriptionViewTextView"
+        android:text="Priority"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/editFab"
         android:layout_width="wrap_content"
@@ -38,5 +52,15 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_edit" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deleteFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_menu_delete"
+        android:layout_alignTop="@+id/editFab"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

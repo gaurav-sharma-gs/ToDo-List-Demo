@@ -112,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.trash){
+            startActivity(new Intent(this, TrashViewActivity.class));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
